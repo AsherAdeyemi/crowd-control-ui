@@ -1,36 +1,163 @@
-/* theme.css */
+/* === BUTTONS & GENERAL THEME === */
+.a, .theme-button {
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #6a00ff, #0047ab);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 1rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.a:hover, .theme-button:hover {
+  background: linear-gradient(135deg, #0047ab, #6a00ff);
+  transform: scale(1.05);
+}
 
 .theme-background {
-  background: linear-gradient(to bottom right, #000000, #1f1f1f, #3a3a3a);
-  color: white;
-  height: 100vh;
+  background: #0b0c10;
+  min-height: 100vh;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
 }
 
 .theme-title {
-  font-size: 2.5rem;
-  font-weight: bold;
   color: white;
+  font-size: 2.5rem;
+}
+
+/* === DASHBOARD ENHANCEMENTS === */
+.dashboard-layout {
+  padding: 2rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0b0c10, #1c1f2b);
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.dashboard-header-glow {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.dashboard-title {
+  font-size: 2.5rem;
+  background: linear-gradient(90deg, #6a00ff, #0047ab);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+  text-shadow: 0 0 12px rgba(106, 0, 255, 0.5);
+}
+
+.dashboard-cards-section {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.stat-card {
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+  min-width: 220px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+.bg-blue {
+  background: linear-gradient(135deg, #0047ab, #0066cc);
+}
+.bg-purple {
+  background: linear-gradient(135deg, #6a00ff, #8e44ad);
+}
+.bg-orange {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+}
+
+.chart-section {
+  margin-top: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+.chart-title {
+  text-align: center;
+  font-size: 1.5rem;
   margin-bottom: 1.5rem;
+}
+
+.chart-container {
+  width: 100%;
+  height: 300px;
+}
+
+/* === WEBCAM === */
+.webcam-section {
   text-align: center;
 }
 
-.theme-button {
-  padding: 1rem 2rem;
-  font-size: 1.25rem;
+.webcam-title {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
   color: white;
-  background: linear-gradient(135deg, #6a00ff, #0047ab, #8e44ad);
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.3s ease, background 0.3s ease;
 }
 
-.theme-button:hover {
-  transform: scale(1.05);
-  background: linear-gradient(135deg, #8e44ad, #0047ab, #6a00ff);
+.webcam-video {
+  width: 640px;
+  height: 480px;
+  border-radius: 12px;
+  border: 2px solid #6a00ff;
+}
+
+.webcam-container {
+  display: flex;
+  justify-content: center;
+  border: 2px solid #6a00ff;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Legacy dashboard styles kept for fallback */
+.dashboard-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+  width: 100%;
+}
+
+.dashboard-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dashboard-cards {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  background: linear-gradient(135deg, #6a00ff, #0047ab, #8e44ad);
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }

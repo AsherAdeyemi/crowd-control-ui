@@ -1,49 +1,80 @@
-import React from 'react';
-import Webcam from 'react-webcam';
+// src/components/Dashboard.js
+import React, { useEffect, useState } from 'react';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
+import axios from 'axios';
+import '../styles/theme.css';
 
 const Dashboard = () => {
-  const videoConstraints = {
-    width: 640,
-    height: 480,
-    facingMode: "user",
-  };
+  const [logData, setLogData] = useState([]);
+
+  useEffect(() => {
+    const fetchLog = async () => {
+      try {
+        const res = await axios.get('http://localhost:5050/get_log.php');
+        const lines = res.data.split('\n').filter(Boolean);
+
+        const parsed = lines
+          .filter(line => line.includes('⚠️ Alert:'))
+          .map(line => {
+            const match = line.match(/(\d+) people detected at (.+)/);
+            if (match) {
+              return {
+                time: match[2].trim(),
+                count: parseInt(match[1]),
+              };
+            }
+            return null;
+          })
+          .filter(Boolean);
+
+        setLogData(parsed);
+      } catch (err) {
+        console.error('Failed to fetch logs:', err);
+      }
+    };
+
+    fetchLog();
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-4">
-      {/* Top Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
-        <StatCard title="Current Crowd" value="32" />
-        <StatCard title="Peak Hour" value="5:00 PM" />
-        <StatCard title="Alerts" value="2" />
-        <StatCard title="Cameras Online" value="1" />
+    <div className="dashboard-layout">
+      {/* Title */}
+      <div className="dashboard-header-glow">
+        <h1 className="dashboard-title">Crowd Detection Dashboard</h1>
       </div>
 
-      {/* Middle Section: Logs and Graphs */}
-      <div className="grid grid-cols-2 gap-4 mb-6">
-        <div className="bg-gray-800 rounded-xl p-4">Event Logs</div>
-        <div className="bg-gray-800 rounded-xl p-4">Crowd Chart</div>
+      {/* Stats Cards */}
+      <div className="dashboard-cards-section">
+        <div className="stat-card bg-blue">Total Alerts: {logData.length}</div>
+        <div className="stat-card bg-purple">Campus Area: Bingham University, Karu</div>
+        <div className="stat-card bg-orange">Detection Threshold: 2 People</div>
       </div>
 
-      {/* Webcam Feed */}
-      <div className="bg-gray-800 rounded-xl p-4 text-center">
-        <h2 className="text-xl font-semibold mb-4">Live Camera Feed</h2>
-        <Webcam
-          audio={false}
-          height={480}
-          width={640}
-          videoConstraints={videoConstraints}
-          className="mx-auto rounded-md border-4 border-blue-500"
-        />
+      {/* Line Chart */}
+      <div className="chart-section">
+        <h2 className="chart-title">Crowd Alerts Over Time</h2>
+        <div className="chart-container">
+          <ResponsiveContainer>
+            <LineChart data={logData}>
+              <CartesianGrid stroke="#444" />
+              <XAxis dataKey="time" minTickGap={25} />
+              <YAxis />
+              <Tooltip />
+              <Line type="monotone" dataKey="count" stroke="#6a00ff" strokeWidth={2} />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );
 };
-
-const StatCard = ({ title, value }) => (
-  <div className="bg-gray-800 rounded-xl p-4 text-center shadow-lg">
-    <h4 className="text-md text-gray-400">{title}</h4>
-    <p className="text-2xl font-bold">{value}</p>
-  </div>
-);
 
 export default Dashboard;
