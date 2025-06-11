@@ -10,6 +10,11 @@
   margin: 1rem;
   transition: background 0.3s ease, transform 0.2s ease;
 }
+
+.theme-button + .theme-button {
+  margin-left: 0.5rem;
+}
+
 .a:hover, .theme-button:hover {
   background: linear-gradient(135deg, #0047ab, #6a00ff);
   transform: scale(1.05);
