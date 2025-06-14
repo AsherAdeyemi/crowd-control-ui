@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* === BUTTONS & GENERAL THEME === */
 .a, .theme-button {
   padding: 1rem 2rem;
